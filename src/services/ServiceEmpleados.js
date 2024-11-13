@@ -44,6 +44,21 @@ export default class ServiceEmpleados {
             return response.data;
         });
     }
+
+    getEmpleados() {
+        let request = "api/empleados";
+        let url = Global.urlApiEmpleados + request;
+
+        let token = localStorage.getItem("token")
+        return axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        }).then(response => {
+            console.log("getEmpleados", response);
+            return response.data;
+        });
+    }
     
 
 }

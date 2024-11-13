@@ -17,14 +17,16 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/profile">Profile</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/empleados">Empleados</router-link>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
+            Carrocería
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><router-link class="dropdown-item" to="/coches">Coches</router-link></li>
+            <li><router-link class="dropdown-item" to="/crear">Crear Coche</router-link></li>
           </ul>
         </li>
       </ul>
