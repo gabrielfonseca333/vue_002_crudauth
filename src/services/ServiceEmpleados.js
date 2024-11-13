@@ -18,7 +18,29 @@ export default class ServiceEmpleados {
     getEmpleadoProfile() {
         let request = "api/empleados/perfilempleado";
         let url = Global.urlApiEmpleados + request;
-        return axios.get(url).then(response => {
+
+        let token = localStorage.getItem("token")
+        return axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        }).then(response => {
+            console.log("getEmpleadoProfile", response);
+            return response.data;
+        });
+    }
+
+    getSubordinados(){
+        let request = "api/empleados/subordinados";
+        let url = Global.urlApiEmpleados + request;
+
+        let token = localStorage.getItem("token")
+        return axios.get(url, {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        }).then(response => {
+            console.log("getSubordinados", response);
             return response.data;
         });
     }

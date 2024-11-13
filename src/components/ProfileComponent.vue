@@ -1,41 +1,76 @@
 <template>
   <div>     
     <h1>Profile</h1>
-    <p>This is the profile page</p>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <img src="https://picsum.photos/200/300" class="img-fluid" alt="Responsive image">
-            </div>
-            <div class="col-sm-6">
-                <h2>Perfil</h2>
-                <p>Nombre: John Doe</p>
-                <p>Email: johndoe@example.com</p>
-                <p>Fecha de nacimiento: 01/01/1970</p>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-sm-6">
-                <h2>Datos de contacto</h2>
-                <p>Teléfono: +1 (555) 555-5555</p>
-                <p>Email: johndoe@example.com</p>
-                <p>Dirección: 123 Main St, Anytown USA 12345</p>
-            </div>
-            <div class="col-sm-6">
-                <h2>Datos de empleador</h2>
-                <p>Nombre: John Doe</p>
-                <p>Email: johndoe@example.com</p>
-                <p>Fecha de nacimiento: 01/01/1970</p>
-            </div>
-        </div>
+    <div>
+      <!-- tiene idEmpleado, apellido, oficio, salario y director -->
+       <h2>Información del empleado</h2>
+       <p>IdEmpleado: {{empleado.idEmpleado}}</p>
+       <p>Apellido: {{empleado.apellido}}</p>
+       <p>Oficio: {{empleado.oficio}}</p>
+       <p>Salario: {{empleado.salario}}</p>
+       <p>Director: {{empleado.director}}</p>
 
-      </div>
+       <button @click="getSubordinados()" class="btn btn-primary">Obtener Subordinados</button>
+
+       <br>
+
+       <div class="container" v-if="subordinados.length > 0">
+         <h2>Subordinados</h2>
+         <!-- los subordinados tienen idEmpleado, apellido, oficio, salario y director -->
+          <table class="table">
+            <thead>
+              <tr>
+                <th>IdEmpleado</th>
+                <th>Apellido</th>
+                <th>Oficio</th>
+                <th>Salario</th>
+                <th>Director</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="subordinado in subordinados" :key="subordinado">
+                <td>{{subordinado.idEmpleado}}</td>
+                <td>{{subordinado.apellido}}</td>
+                <td>{{subordinado.oficio}}</td>
+                <td>{{subordinado.salario}}</td>
+                <td>{{subordinado.director}}</td>
+              </tr>
+            </tbody>
+          </table>
+       </div>
+        
+    </div>
   </div>
 </template>
 
 <script>
+import ServiceEmpleados from "@/services/ServiceEmpleados";
+const service = new ServiceEmpleados();
 export default {
+
+  data() {
+    return {
+      empleado: {},
+      subordinados: []
+    }
+  },
+
+  mounted() {
+    service.getEmpleadoProfile().then(response => {
+      console.log("ProfileComponent😮", response);
+      this.empleado = response;
+    });
+  },
+
+  methods: {
+    getSubordinados() {
+      service.getSubordinados().then(response => {
+        this.subordinados = response;
+        console.log("😘",this.subordinados);
+      });
+    }
+  }
+
 
 }
 </script>
